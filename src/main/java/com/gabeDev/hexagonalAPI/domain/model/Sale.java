@@ -1,4 +1,4 @@
-package com.gabeDev.hexagonalAPI.domain;
+package com.gabeDev.hexagonalAPI.domain.model;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,10 +12,10 @@ public class Sale {
     private PaymentMethod paymentMethod;
 
     public Sale(){
-
+        this.saleId = UUID.randomUUID();
     }
     public Sale(UUID saleId, List<Produce> checkout, BigDecimal total, PaymentMethod paymentMethod){
-        this.saleId = saleId;
+        this.saleId = UUID.randomUUID();
         this.checkout = checkout;
         this.total = total;
         this.paymentMethod = paymentMethod;
