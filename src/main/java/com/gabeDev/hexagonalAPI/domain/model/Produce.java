@@ -1,4 +1,4 @@
-package com.gabeDev.hexagonalAPI.domain;
+package com.gabeDev.hexagonalAPI.domain.model;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -11,10 +11,11 @@ public class Produce {
     private int quantity;
 
     public Produce(){
+        this.produceId = UUID.randomUUID();
     }
 
-    public Produce(UUID produceId, String name, BigDecimal price, int quantity){
-        this.produceId = produceId;
+    public Produce(String name, BigDecimal price, int quantity){
+        this.produceId = UUID.randomUUID();
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -63,7 +64,7 @@ public class Produce {
     }
 
     public void setPrice(BigDecimal price){
-        if(price.compareTo(BigDecimal.ZERO) <= 0){
+        if(price == null || price.compareTo(BigDecimal.ZERO) <= 0){
             throw new RuntimeException("Price can't be lower than 0");
         }
         this.price = price;
