@@ -7,24 +7,27 @@ import java.util.UUID;
 public class Sale {
 
     private UUID saleId;
-    private List<Produce> checkout;
+    private List<SaleItem> checkout;
     private BigDecimal total;
     private PaymentMethod paymentMethod;
 
-    public Sale(){
-        this.saleId = UUID.randomUUID();
-    }
-    public Sale(UUID saleId, List<Produce> checkout, BigDecimal total, PaymentMethod paymentMethod){
-        this.saleId = UUID.randomUUID();
+    public Sale(UUID saleId, List<SaleItem> checkout, BigDecimal total, PaymentMethod paymentMethod){
+        this.saleId = saleId;
         this.checkout = checkout;
         this.total = total;
         this.paymentMethod = paymentMethod;
     }
 
-    private BigDecimal calculateTotal(List<Produce> checkout){
+    public Sale(List<SaleItem> checkout, BigDecimal total, PaymentMethod paymentMethod){
+        this.checkout = checkout;
+        this.total = total;
+        this.paymentMethod = paymentMethod;
+    }
+
+    public static BigDecimal getTotal(List<SaleItem> checkout){
         BigDecimal total = BigDecimal.ZERO;
-        for(Produce produce : checkout){
-            total = total.add(produce.getPrice());
+        for(SaleItem item : checkout){
+            total = total.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
         }
         return total;
     }
@@ -32,7 +35,7 @@ public class Sale {
     public UUID getSaleId(){
         return saleId;
     }
-    public List<Produce> getCheckout(){
+    public List<SaleItem> getCheckout(){
         return checkout;
     }
     public BigDecimal getTotal(){
@@ -42,10 +45,7 @@ public class Sale {
         return paymentMethod;
     }
 
-    public void setSaleId(UUID id){
-        this.saleId = id;
-    }
-    public void setCheckout(List<Produce> checkout){
+    public void setCheckout(List<SaleItem> checkout){
         this.checkout = checkout;
     }
     public void setTotal(BigDecimal total){
@@ -53,5 +53,8 @@ public class Sale {
     }
     public void setPaymentMethod(PaymentMethod paymentMethod){
         this.paymentMethod = paymentMethod;
+    }
+    public void setSaleId(UUID id){
+        this.saleId = id;
     }
 }
