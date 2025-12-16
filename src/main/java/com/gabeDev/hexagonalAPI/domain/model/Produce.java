@@ -10,12 +10,15 @@ public class Produce {
     private BigDecimal price;
     private int quantity;
 
-    public Produce(){
-        this.produceId = UUID.randomUUID();
-    }
 
     public Produce(String name, BigDecimal price, int quantity){
-        this.produceId = UUID.randomUUID();
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Produce(UUID produceId, String name, BigDecimal price, int quantity){
+        this.produceId = produceId;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -23,7 +26,7 @@ public class Produce {
 
     public void increaseQuantity(int amount){
         validateAmount(amount);
-        this.quantity =+ amount;
+        this.quantity += amount;
     }
     public void decreaseQuantity(int amount){
         validateAmount(amount);
@@ -56,11 +59,11 @@ public class Produce {
         return quantity;
     }
 
-    public void setProduceId(UUID id){
-        this.produceId = produceId;
-    }
     public void setName(String name){
         this.name = name;
+    }
+    public void setProduceId(UUID id){
+        this.produceId = id;
     }
 
     public void setPrice(BigDecimal price){

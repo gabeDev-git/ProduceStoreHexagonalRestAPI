@@ -4,6 +4,7 @@ import com.gabeDev.hexagonalAPI.adapter.persistence.mapper.ProduceMapper;
 import com.gabeDev.hexagonalAPI.application.dto.CreateProduceRequest;
 import com.gabeDev.hexagonalAPI.application.service.ProduceService;
 import com.gabeDev.hexagonalAPI.domain.model.Produce;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,9 @@ public class ProduceController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable UUID id){
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
         produceService.removeProduce(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
