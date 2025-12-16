@@ -18,13 +18,8 @@ public class ProduceMapper {
     }
 
     public static Produce toDomain(ProduceEntity entity){
-        Produce produce = new Produce();
-        produce.setProduceId(entity.getProduceId());
-        produce.setName(entity.getName());
-        produce.setPrice(entity.getPrice());
-        produce.setQuantity(entity.getQuantity());
-
-        return produce;
+        return new Produce(entity.getProduceId(), entity.getName(),
+                entity.getPrice(), entity.getQuantity());
     }
 
     public static ProduceDetails toProduceDetails(ProduceEntity produceEntity){
@@ -34,11 +29,7 @@ public class ProduceMapper {
     }
 
     public static Produce toDomainFromDto(CreateProduceRequest request){
-        Produce produce = new Produce();
-        produce.setName(request.name());
-        produce.setPrice(request.price());
-        produce.setQuantity(request.quantity());
-
-        return produce;
+        return new Produce(request.name(), request.price(),
+        request.quantity());
     }
 }
