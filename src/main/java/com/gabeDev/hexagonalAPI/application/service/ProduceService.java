@@ -3,6 +3,7 @@ import com.gabeDev.hexagonalAPI.domain.model.Produce;
 import com.gabeDev.hexagonalAPI.domain.port.in.ProduceCommands;
 import com.gabeDev.hexagonalAPI.domain.port.in.ProduceQueries;
 import com.gabeDev.hexagonalAPI.domain.port.out.ProduceRepositoryPort;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class ProduceService implements ProduceCommands, ProduceQueries {
 
     ProduceRepositoryPort produceRepositoryPort;
@@ -21,6 +23,7 @@ public class ProduceService implements ProduceCommands, ProduceQueries {
 
     @Override
     public Produce createNew(Produce produce) {
+        produce.setProduceId(UUID.randomUUID());
         return produceRepositoryPort.save(produce);
     }
 
