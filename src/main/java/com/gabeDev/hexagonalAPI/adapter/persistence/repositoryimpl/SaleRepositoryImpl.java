@@ -35,8 +35,11 @@ public class SaleRepositoryImpl implements SaleRepositoryPort {
     }
 
     @Override
-    public List<Sale> findByTimeframe(Instant timeframe) {
-        return List.of();
+    public List<Sale> findAllSince(Instant instant) {
+        return jpaSaleRepository.findByCreatedAtAfter(instant)
+                .stream()
+                .map(SaleMapper::toDomain)
+                .toList();
     }
 
     @Override
