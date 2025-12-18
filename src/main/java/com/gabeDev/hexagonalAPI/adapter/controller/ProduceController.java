@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +41,26 @@ public class ProduceController {
     public ResponseEntity<Void> delete(@PathVariable UUID id){
         produceService.removeProduce(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/increase/{id}")
+    public ResponseEntity<Produce> restock(@PathVariable UUID id, @RequestParam int amount){
+        return ResponseEntity.ok(produceService.restockProduce(id, amount));
+    }
+
+    @PutMapping("/decrease/{id}")
+    public ResponseEntity<Produce> lowerStock(@PathVariable UUID id, @RequestParam int amount){
+        return ResponseEntity.ok(produceService.removeOrSellStock(id, amount));
+    }
+
+    @PutMapping("rename/{id}")
+    public ResponseEntity<Produce> rename(@PathVariable UUID id, @RequestParam String newName){
+        return ResponseEntity.ok(produceService.changeName(id, newName));
+    }
+
+    @PutMapping("reprice/{id}")
+    public ResponseEntity<Produce> reprice(@PathVariable UUID id, @RequestParam BigDecimal newPrice){
+        return ResponseEntity.ok(produceService.changePrice(id, newPrice));
     }
 
 }
