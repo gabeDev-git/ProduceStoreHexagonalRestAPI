@@ -11,7 +11,7 @@ public interface SaleRepositoryPort {
 
     Sale save(Sale sale);
     List<Sale> findAll();
-    List<Sale> findByTimeframe(Instant timeframe);
+    List<Sale> findAllSince(Instant cutoff);
     Optional<Sale> findById(UUID id);
     void deleteById(UUID id);
 

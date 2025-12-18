@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,5 +40,10 @@ public class SaleController {
     public ResponseEntity<Void> deleteById(@PathVariable UUID id){
         saleService.deleteSale(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/sales/since")
+    ResponseEntity<List<Sale>> salesSince(@RequestParam Instant since){
+        return ResponseEntity.ok(saleService.retrieveSalesSince(since));
     }
 }
